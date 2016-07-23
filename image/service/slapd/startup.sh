@@ -224,6 +224,10 @@ EOF
     LDAP_TLS_KEY_PATH="${CONTAINER_SERVICE_DIR}/slapd/assets/certs/$LDAP_TLS_KEY_FILENAME"
     LDAP_TLS_DH_PARAM_PATH="${CONTAINER_SERVICE_DIR}/slapd/assets/certs/dhparam.pem"
 
+    [ -e /certs/$LDAP_TLS_CA_CRT_FILENAME ] && cp -f /certs/$LDAP_TLS_CA_CRT_FILENAME $LDAP_TLS_CA_CRT_PATH
+    [ -e /certs/$LDAP_TLS_CRT_FILENAME ] && cp -f /certs/$LDAP_TLS_CRT_FILENAME $LDAP_TLS_CRT_PATH
+    [ -e /certs/$LDAP_TLS_KEY_FILENAME ] && cp -f /certs/$LDAP_TLS_KEY_FILENAME $LDAP_TLS_KEY_PATH
+
     # generate a certificate and key with cfssl tool if LDAP_CRT and LDAP_KEY files don't exists
     # https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cfssl/assets/tool/cfssl-helper
     cfssl-helper $LDAP_CFSSL_PREFIX $LDAP_TLS_CRT_PATH $LDAP_TLS_KEY_PATH $LDAP_TLS_CA_CRT_PATH
